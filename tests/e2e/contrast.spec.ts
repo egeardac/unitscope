@@ -8,7 +8,7 @@ import { expect, test } from '@playwright/test';
  * full strength) and requires WCAG 2.2 AA: 4.5:1, or 3:1 for large text.
  */
 const PAGES = [
-  '?intro',
+  '',
   '?q=voltage',
   '?q=voltage&mode=ac&v=230&from=V&to=mV',
   '?q=capacitance&v=100&from=uF&to=nF',

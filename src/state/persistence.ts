@@ -11,8 +11,6 @@ const KEY_THEME = 'unitscope.theme';
 const KEY_SETTINGS = 'unitscope.settings';
 const KEY_HISTORY = 'unitscope.history';
 const KEY_ONBOARDED = 'unitscope.onboarded';
-// Also read by the inline boot script in index.html.
-const KEY_SKIP_INTRO = 'unitscope.skipIntro';
 
 export type ThemePref = 'light' | 'dark' | 'system';
 
@@ -118,12 +116,4 @@ export function loadOnboarded(): boolean {
 
 export function saveOnboarded(): void {
   write(KEY_ONBOARDED, '1');
-}
-
-export function loadSkipIntro(): boolean {
-  return read(KEY_SKIP_INTRO) === '1';
-}
-
-export function saveSkipIntro(skip: boolean): void {
-  write(KEY_SKIP_INTRO, skip ? '1' : null);
 }

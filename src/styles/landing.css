@@ -25,9 +25,7 @@
 
 .landing-top .landing-wrap {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  justify-content: center;
   padding-block: 10px;
 }
 
@@ -92,21 +90,6 @@
   font-size: 1rem;
   border-radius: 14px;
   text-decoration: none;
-}
-
-.landing-top .btn {
-  text-decoration: none;
-}
-
-.landing-units {
-  margin-top: 26px;
-  font: 500 0.82rem/1.6 var(--mono);
-  color: var(--text-3);
-}
-
-.landing-units b {
-  font-weight: 500;
-  color: var(--text-2);
 }
 
 /* ---------- Scope card ---------- */
@@ -246,71 +229,6 @@
   color: var(--text-3);
 }
 
-/* ---------- Features ---------- */
-
-.landing-features {
-  padding-block: 40px 56px;
-  scroll-margin-top: 70px;
-}
-
-.landing-features h2 {
-  margin-bottom: 6px;
-  font-size: 1.5rem;
-  letter-spacing: -0.02em;
-  text-wrap: balance;
-}
-
-.landing-features > p {
-  max-width: 40em;
-  margin-bottom: 24px;
-  color: var(--text-2);
-}
-
-.landing-cards {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.landing-card {
-  display: grid;
-  align-content: start;
-  gap: 10px;
-  min-width: 0;
-  padding: 18px;
-}
-
-.landing-ic {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 11px;
-  background: var(--accent-soft);
-  color: var(--accent);
-}
-
-.landing-ic svg {
-  width: 22px;
-  height: 22px;
-}
-
-.landing-card h3 {
-  margin-top: 4px;
-  font-size: 1rem;
-}
-
-.landing-card p {
-  font-size: 0.92rem;
-  color: var(--text-2);
-}
-
-.landing-eg {
-  font: 500 0.78rem/1.5 var(--mono);
-  color: var(--text-3);
-  overflow-wrap: anywhere;
-}
-
 /* ---------- Footer ---------- */
 
 .landing-footer {
@@ -331,11 +249,6 @@
 
 .landing-footer p {
   max-width: 56em;
-}
-
-.landing-footer .check {
-  color: var(--text-2);
-  white-space: nowrap;
 }
 
 /* ---------- Entrance (only after the boot screen reveals the page) ---------- */
@@ -387,9 +300,6 @@
     padding-block: 40px 24px;
   }
 
-  .landing-cards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 @media (max-width: 560px) {
@@ -397,15 +307,7 @@
     padding-inline: 16px;
   }
 
-  .landing-cards {
-    grid-template-columns: 1fr;
-  }
-
   .landing-readouts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .landing-hide-narrow {
-    display: none;
   }
 }

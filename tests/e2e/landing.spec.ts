@@ -9,7 +9,8 @@ test.describe('intro and landing page', () => {
     await bootDone(page);
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Convert a unit.');
     await expect(page.locator('.landing-logo')).toBeVisible();
-    await page.getByRole('main').getByRole('button', { name: /Open Unitscope/ }).click();
+    await expect(page.getByRole('button', { name: /Open Unitscope/ })).toHaveCount(1);
+    await page.getByRole('button', { name: /Open Unitscope/ }).click();
     await expect(page.getByTestId('value-input')).toBeFocused();
   });
 
@@ -20,23 +21,11 @@ test.describe('intro and landing page', () => {
     await expect(page.locator('.landing')).toHaveCount(0);
   });
 
-  test('"Skip intro next time" opens the workspace on the next visit, and ?intro brings the landing back', async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('./');
-    await bootDone(page);
-    await page.getByRole('checkbox', { name: 'Skip intro next time' }).check();
-    await page.reload();
-    await expect(page.getByTestId('value-input')).toBeVisible();
-    await expect(page.locator('.landing')).toHaveCount(0);
-    await page.getByRole('link', { name: 'Show the intro page' }).click();
-    await expect(page.getByRole('checkbox', { name: 'Skip intro next time' })).toBeChecked();
-  });
-
   test('a reload after opening the workspace stays in the workspace', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto('./');
     await bootDone(page);
-    await page.getByRole('main').getByRole('button', { name: /Open Unitscope/ }).click();
+    await page.getByRole('button', { name: /Open Unitscope/ }).click();
     await page.getByTestId('value-input').fill('4.7');
     await expect(page).toHaveURL(/[?&]q=/);
     await page.reload();

@@ -182,8 +182,8 @@
        * Intro: the logo stretches into a scope screen, a trace sweeps across
        * (the sweep doubles as the progress indicator), then the app calls
        * unitscopeBoot.finish(target) and the screen shrinks into `target`
-       * (the landing logo) while the overlay fades. Shared links (?q=) and
-       * "Skip intro" get a static logo that fades as soon as the app mounts.
+       * (the landing logo) while the overlay fades. Shared links (?q=) get a
+       * static logo that fades as soon as the app mounts.
        */
       (function () {
         var root = document.documentElement;
@@ -200,10 +200,7 @@
           return el.animate ? el.animate(kf, opts) : { finished: Promise.resolve() };
         };
 
-        var skip = /[?&]q=/.test(location.search) && !/[?&]intro\b/.test(location.search);
-        try {
-          if (localStorage.getItem('unitscope.skipIntro') === '1' && !/[?&]intro\b/.test(location.search)) skip = true;
-        } catch (e) {}
+        var skip = /[?&]q=/.test(location.search);
         var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
         var full = !skip && !reduced && !!mark.animate;
         var size = null;
