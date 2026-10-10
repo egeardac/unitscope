@@ -30,9 +30,7 @@ export function onBootReveal(cb: () => void): () => void {
   };
 }
 
-/** Whether the visitor should land on the intro page rather than the workspace. */
-export function wantsLanding(search: string, skipIntro: boolean): boolean {
-  const p = new URLSearchParams(search);
-  if (p.has('intro')) return true;
-  return !p.has('q') && !skipIntro;
+/** Shared links (?q=) open the workspace directly; every other visit lands on the intro page. */
+export function wantsLanding(search: string): boolean {
+  return !new URLSearchParams(search).has('q');
 }

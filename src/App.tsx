@@ -16,7 +16,6 @@ import {
   loadHistory,
   loadOnboarded,
   loadSettings,
-  loadSkipIntro,
   loadTheme,
   pushHistory,
   saveHistory,
@@ -206,7 +205,7 @@ function Workspace({ store, rejected, restored }: { store: Store; rejected: stri
           <button type="button" className="linklike" onClick={() => setHelpOpen(true)}>
             guide
           </button>
-          . <a href="./?intro">Show the intro page</a>.
+          .
         </p>
       </footer>
       <HelpDialog open={helpOpen} onClose={() => setHelpOpen(false)} />
@@ -228,7 +227,7 @@ export function App({ search = typeof window !== 'undefined' ? window.location.s
 
 /** Landing page first (after the boot intro), then the workspace. Shared links open the workspace directly. */
 export function Root() {
-  const [view, setView] = useState<'landing' | 'app'>(() => (wantsLanding(window.location.search, loadSkipIntro()) ? 'landing' : 'app'));
+  const [view, setView] = useState<'landing' | 'app'>(() => (wantsLanding(window.location.search) ? 'landing' : 'app'));
   const opened = useRef(false);
 
   useEffect(() => {
@@ -245,13 +244,6 @@ export function Root() {
       <Landing
         onOpen={() => {
           opened.current = true;
-          if (new URLSearchParams(window.location.search).has('intro')) {
-            try {
-              window.history.replaceState(null, '', window.location.pathname);
-            } catch {
-              /* some embedded contexts forbid history changes */
-            }
-          }
           setView('app');
         }}
       />

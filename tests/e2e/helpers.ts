@@ -2,10 +2,15 @@ import { expect, type Page } from '@playwright/test';
 
 export const NNBSP = / /g;
 
-/** Opens the workspace. A bare visit would show the landing page, so these tests skip the intro. */
+/** Opens the workspace. A bare visit lands on the landing page first, so it goes through "Open Unitscope". */
 export async function open(page: Page, query = ''): Promise<void> {
-  if (!query) await page.addInitScript(() => window.localStorage.setItem('unitscope.skipIntro', '1'));
   await page.goto(query ? `./${query}` : './');
+  if (!query) {
+    await bootDone(page);
+    await page.getByRole('button', { name: /Open Unitscope/ }).click();
+    // Start from a neutral focus, as on a direct visit.
+    await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
+  }
   await expect(page.getByTestId('value-input')).toBeVisible();
   await bootDone(page);
 }
