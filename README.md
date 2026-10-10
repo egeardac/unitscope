@@ -80,6 +80,7 @@ Each is labelled *Circuit calculation*, kept separate from unit conversion, and 
 
 ### Workspace
 
+- A short intro (the logo stretches into a scope trace) leads to a landing page; "Open Unitscope" opens the workspace. Shared links (`?q=…`) open the workspace directly, "Skip intro next time" remembers the choice, and `?intro` shows the landing page again. Reduced motion gets a still logo instead of the animation.
 - Category search by name, unit, alias or keyword (`uF`, `dBm`, `battery`, `trace`). Typing `100 uF` and pressing Enter carries the value over.
 - Meaningful presets and reference comparisons.
 - Recent conversions, stored locally.

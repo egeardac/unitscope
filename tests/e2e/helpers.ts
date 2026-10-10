@@ -2,9 +2,17 @@ import { expect, type Page } from '@playwright/test';
 
 export const NNBSP = / /g;
 
+/** Opens the workspace. A bare visit would show the landing page, so these tests skip the intro. */
 export async function open(page: Page, query = ''): Promise<void> {
+  if (!query) await page.addInitScript(() => window.localStorage.setItem('unitscope.skipIntro', '1'));
   await page.goto(query ? `./${query}` : './');
   await expect(page.getByTestId('value-input')).toBeVisible();
+  await bootDone(page);
+}
+
+/** Waits until the boot screen has left the page. */
+export async function bootDone(page: Page): Promise<void> {
+  await expect(page.locator('#boot')).toHaveCount(0, { timeout: 10_000 });
 }
 
 export async function pickQuantity(page: Page, name: string | RegExp): Promise<void> {

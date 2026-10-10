@@ -3,6 +3,8 @@ import { formatNumber } from './engine/format';
 import { CalcPanel } from './calcs/Calcs';
 import { ConverterPanel } from './components/ConverterPanel';
 import { HelpDialog } from './components/HelpDialog';
+import { finishBoot, wantsLanding } from './landing/boot';
+import { Landing } from './landing/Landing';
 import { AllUnitsTable, PresetsPanel, RecentList, ReferenceComparisons } from './components/MorePanels';
 import { QuantityRail } from './components/QuantityRail';
 import { Stage } from './components/Stage';
@@ -14,6 +16,7 @@ import {
   loadHistory,
   loadOnboarded,
   loadSettings,
+  loadSkipIntro,
   loadTheme,
   pushHistory,
   saveHistory,
@@ -203,7 +206,7 @@ function Workspace({ store, rejected, restored }: { store: Store; rejected: stri
           <button type="button" className="linklike" onClick={() => setHelpOpen(true)}>
             guide
           </button>
-          .
+          . <a href="./?intro">Show the intro page</a>.
         </p>
       </footer>
       <HelpDialog open={helpOpen} onClose={() => setHelpOpen(false)} />
@@ -220,5 +223,43 @@ export function App({ search = typeof window !== 'undefined' ? window.location.s
         <Workspace store={store} rejected={init.rejected} restored={init.restored} />
       </ToastProvider>
     </StoreProvider>
+  );
+}
+
+/** Landing page first (after the boot intro), then the workspace. Shared links open the workspace directly. */
+export function Root() {
+  const [view, setView] = useState<'landing' | 'app'>(() => (wantsLanding(window.location.search, loadSkipIntro()) ? 'landing' : 'app'));
+  const opened = useRef(false);
+
+  useEffect(() => {
+    if (view !== 'app') return;
+    void finishBoot(null);
+    if (opened.current) {
+      window.scrollTo(0, 0);
+      document.querySelector<HTMLInputElement>('[data-testid="value-input"]')?.focus({ preventScroll: true });
+    }
+  }, [view]);
+
+  if (view === 'landing') {
+    return (
+      <Landing
+        onOpen={() => {
+          opened.current = true;
+          if (new URLSearchParams(window.location.search).has('intro')) {
+            try {
+              window.history.replaceState(null, '', window.location.pathname);
+            } catch {
+              /* some embedded contexts forbid history changes */
+            }
+          }
+          setView('app');
+        }}
+      />
+    );
+  }
+  return (
+    <div className={opened.current ? 'view-in' : undefined}>
+      <App />
+    </div>
   );
 }
