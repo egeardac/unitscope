@@ -8,7 +8,8 @@ import { expect, test } from '@playwright/test';
  * full strength) and requires WCAG 2.2 AA: 4.5:1, or 3:1 for large text.
  */
 const PAGES = [
-  '',
+  '?intro',
+  '?q=voltage',
   '?q=voltage&mode=ac&v=230&from=V&to=mV',
   '?q=capacitance&v=100&from=uF&to=nF',
   '?q=inductance&v=2.5&from=mH&to=uH',
@@ -27,6 +28,7 @@ for (const scheme of ['light', 'dark'] as const) {
     let checked = 0;
     for (const q of PAGES) {
       await page.goto(`./${q}`);
+      await expect(page.locator('#boot')).toHaveCount(0, { timeout: 10_000 });
       await page.waitForTimeout(250);
       const r = await page.evaluate(() => {
         type RGBA = [number, number, number, number];
