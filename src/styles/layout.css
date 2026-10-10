@@ -1,0 +1,186 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Top bar ---------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 20px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  text-decoration: none;
+  min-height: 44px;
+  min-width: 0;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+  min-width: 0;
+}
+
+.brand-name {
+  font-weight: 720;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+
+.brand-tag {
+  color: var(--text-3);
+  font-size: 0.8rem;
+}
+
+.logo-bg {
+  fill: var(--accent);
+}
+
+.logo-wave {
+  stroke: var(--on-accent);
+}
+
+.logo-ticks {
+  stroke: var(--on-accent);
+  opacity: 0.8;
+}
+
+.top-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ---------- Workspace grid ---------- */
+
+.workspace {
+  flex: 1;
+  display: grid;
+  gap: 16px;
+  padding: 0 20px 20px;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'rail'
+    'conv'
+    'stage'
+    'more'
+    'recent';
+  align-items: start;
+  width: 100%;
+  max-width: 1880px;
+  margin: 0 auto;
+}
+
+.col-rail {
+  grid-area: rail;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.col-conv {
+  grid-area: conv;
+  min-width: 0;
+}
+
+.col-stage {
+  grid-area: stage;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.col-more {
+  grid-area: more;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.col-recent {
+  grid-area: recent;
+  min-width: 0;
+}
+
+.recent-desktop {
+  display: none;
+}
+
+/* Tablet: two columns, quantity chips across the top. */
+@media (min-width: 768px) {
+  .workspace {
+    grid-template-columns: minmax(300px, 360px) minmax(0, 1fr);
+    grid-template-rows: auto auto auto 1fr;
+    grid-template-areas:
+      'rail rail'
+      'conv stage'
+      'more stage'
+      'recent stage';
+  }
+}
+
+/* Desktop: quantity rail, converter, large visualization in one workspace. */
+@media (min-width: 1200px) {
+  .workspace {
+    grid-template-columns: 236px minmax(340px, 392px) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      'rail conv stage'
+      'rail more stage';
+  }
+
+  .col-rail {
+    position: sticky;
+    top: 12px;
+  }
+
+  .recent-desktop {
+    display: block;
+  }
+
+  .col-recent {
+    display: none;
+  }
+}
+
+.footer {
+  padding: 8px 20px 28px;
+  color: var(--text-3);
+  font-size: 0.85rem;
+  max-width: 1880px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 520px) {
+  .topbar {
+    padding: 10px 16px;
+  }
+
+  .workspace {
+    padding: 0 16px 16px;
+    gap: 12px;
+  }
+
+  .brand-tag {
+    display: none;
+  }
+
+  .top-actions .btn {
+    padding: 0 10px;
+  }
+}

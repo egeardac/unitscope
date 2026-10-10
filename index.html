@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Unitscope · Electronics unit converter</title>
+    <meta
+      name="description"
+      content="Convert electrical units (V, A, Ω, F, H, W, Hz, s, J, C, mil) and see what the value does in an ideal circuit or signal model: DC and AC voltage, RC and RL curves, dBm and more."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#e8e9ee" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#12131a" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <script>
+      // Apply the stored theme before first paint to avoid a flash.
+      try {
+        var t = localStorage.getItem('unitscope.theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+        var s = JSON.parse(localStorage.getItem('unitscope.settings') || '{}');
+        if (s && s.solidPanels === true) document.documentElement.classList.add('solid-panels');
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>Unitscope needs JavaScript to calculate and draw its graphs.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
